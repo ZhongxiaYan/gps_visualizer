@@ -1,0 +1,3 @@
+[submodule "server/util"]
+	path = server/util
+	url = git@github.com:ZhongxiaYan/util.git
