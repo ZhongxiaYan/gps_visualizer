@@ -65,18 +65,18 @@ def init():
         gps_data[name] = read_gpx(name, path)
 
     image_data = []
-    for name, path in list_dir(p.preview_dir, 'jpg', return_name=True):
+    for name, path in list_dir(p.image_dir, 'jpg', return_name=True):
         image_data.append({
             'key': name,
             'time': name
         })
 
-    return jsonify(gps=gps_data, images=image_data)
+    return jsonify(tracks=gps_data, images=image_data)
 
-@app.route('/preview/<name>')
+@app.route('/images/<name>')
 def get_preview(name):
-    p = app.configs['paths']
-    return send_file(os.path.join(p.preview_dir, name), mimetype='image/jpeg')
+    p = app.config['paths']
+    return send_file(os.path.join(p.image_dir, name + '.jpg'), mimetype='image/jpeg')
 
 class P:
     def __init__(self, data_dir):
@@ -87,8 +87,8 @@ class P:
         return os.path.join(self.dir, 'gps')
 
     @property
-    def preview_dir(self):
-        return os.path.join(self.dir, 'previews')
+    def image_dir(self):
+        return os.path.join(self.dir, 'images')
 
 if __name__ == '__main__':
     import argparse
